@@ -8,7 +8,7 @@
 ## Social Channels
 
 This addon supports the following social channels:  
-`Facebook`, `Twitter`, `LinkedIn`, `Pinterest`, `WhatsApp`, `Mail`
+`Facebook`, `Twitter`, `LinkedIn`, `Pinterest`, `WhatsApp`, `Email`
 
 ***
 
@@ -32,7 +32,7 @@ To create a sharing link, you have to call the tag followed by the channel of yo
 <!-- WhatsApp -->
 {{ social:whatsapp }}
 
-<!-- Mail -->
+<!-- Email -->
 {{ social:mail }}
 ```
 
