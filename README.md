@@ -1,3 +1,6 @@
+# Social ![Statamic](https://img.shields.io/badge/statamic-2.10-blue.svg?style=flat-square)
+Social provides an easy way to generate social sharing links for channels like Facebook, Twitter and more.
+
 ## Installation
 
 1. Simply copy the `Social` folder into `site/addons/`.
