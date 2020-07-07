@@ -5,7 +5,7 @@ namespace Statamic\Addons\SocialLinks;
 use Statamic\Extend\Tags;
 use Illuminate\Support\Facades\Request;
 
-class SocialTags extends Tags
+class SocialLinksTags extends Tags
 {
     /**
      * Maps to {{ social:channel }}

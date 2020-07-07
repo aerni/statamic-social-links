@@ -1,14 +1,14 @@
-# Social ![Statamic](https://img.shields.io/badge/statamic-2.10-blue.svg?style=flat-square)
+# SocialLinks ![Statamic](https://img.shields.io/badge/statamic-2.10-blue.svg?style=flat-square)
 This addon provides an easy way to generate social sharing links for channels like Facebook, Twitter and more.
 
 ## Installation
 
-1. Simply copy the `Social` folder into `site/addons/`.
+1. Simply copy the `SocialLinks` folder into `site/addons/`.
 2. That’s it, you’re done!
 
 ***
 
-## Social Channels
+## Supported Channels
 
 This addon supports the following social channels:  
 `Facebook`, `Twitter`, `LinkedIn`, `Pinterest`, `WhatsApp`, `Email`
@@ -21,28 +21,28 @@ To create a sharing link, you have to call the tag followed by the channel of yo
 
 ```template
 <!-- Facebook -->
-{{ social:facebook }}
+{{ sociallinks:facebook }}
 
 <!-- Twitter -->
-{{ social:twitter }}
+{{ sociallinks:twitter }}
 
 <!-- LinkedIn -->
-{{ social:linkedin }}
+{{ sociallinks:linkedin }}
 
 <!-- Pinterest -->
-{{ social:pinterest }}
+{{ sociallinks:pinterest }}
 
 <!-- WhatsApp -->
-{{ social:whatsapp }}
+{{ sociallinks:whatsapp }}
 
 <!-- Email -->
-{{ social:mail }}
+{{ sociallinks:mail }}
 ```
 
-The `{{ social }}` tag will use the URL of the current page by default. If you want to share a different URL, you may pass it using the `url` parameter.
+The `{{ sociallinks }}` tag will use the URL of the current page by default. If you want to share a different URL, you may pass it using the `url` parameter.
 
 ```template
-{{ social:facebook url="https://www.myveryspecialwebsite.com" }}
+{{ sociallinks:facebook url="https://www.myveryspecialwebsite.com" }}
 ```
 
 ***
