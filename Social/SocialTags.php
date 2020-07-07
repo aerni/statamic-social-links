@@ -1,6 +1,6 @@
 <?php
 
-namespace Statamic\Addons\Social;
+namespace Statamic\Addons\SocialLinks;
 
 use Statamic\Extend\Tags;
 use Illuminate\Support\Facades\Request;
