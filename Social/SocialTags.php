@@ -38,11 +38,16 @@ class SocialTags extends Tags
         }
 
         if ($channel === 'twitter') {
-            return "https://twitter.com/intent/tweet?url={$params['url']}&text={$params['title']}&via={$params['handle']}";
+            return "https://twitter.com/intent/tweet?url={$params['url']}&text={$params['text']}&via={$params['handle']}";
         }
-
+        
         if ($channel === 'linkedin') {
             return "https://www.linkedin.com/shareArticle?mini=true&url={$params['url']}&title={$params['title']}&summary={$params['text']}&source={$params['source']}";
+        }
+
+        if ($channel === 'pinterest')
+        {
+            return "https://pinterest.com/pin/create/button/?url={$params['url']}&media={$params['image']}&description={$params['text']}";
         }
 
         if ($channel === 'whatsapp') {
@@ -50,7 +55,7 @@ class SocialTags extends Tags
         }
 
         if ($channel === 'mail') {
-            return "mailto:{$params['mailto']}?&cc={$params['cc']}&bcc={$params['bcc']}&subject={$params['subject']}&body={$params['text']}";
+            return "mailto:{$params['mailto']}?&cc={$params['cc']}&bcc={$params['bcc']}&subject={$params['subject']}&body={$params['body']}";
         }
     }
 
@@ -71,6 +76,8 @@ class SocialTags extends Tags
             'cc' => rawurlencode($this->getParam('cc')),
             'bcc' => rawurlencode($this->getParam('bcc')),
             'subject' => rawurlencode($this->getParam('subject')),
+            'body' => rawurlencode($this->getParam('body')),
+            'image' => rawurlencode($this->getParam('image')),
         ];
     }
 
