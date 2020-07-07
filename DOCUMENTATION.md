@@ -17,25 +17,36 @@ This addon supports the following social channels:
 To create a sharing link, you have to call the tag followed by the channel of your choice.
 
 ```template
-Facebook: {{ social:facebook }}
-Twitter: {{ social:twitter }}
-LinkedIn: {{ social:linkedin }}
-Pinterest: {{ social:pinterest }}
-WhatsApp: {{ social:whatsapp }}
-Mail: {{ social:mail }}
+<!-- Facebook -->
+{{ social:facebook }}
+
+<!-- Twitter -->
+{{ social:twitter }}
+
+<!-- LinkedIn -->
+{{ social:linkedin }}
+
+<!-- Pinterest -->
+{{ social:pinterest }}
+
+<!-- WhatsApp -->
+{{ social:whatsapp }}
+
+<!-- Mail -->
+{{ social:mail }}
 ```
 
 The tag will use the URL of the current page by default. If you want to share a different URL, you may pass it using the `url` parameter.
 
 ```template
-Facebook: {{ social:facebook url="https://www.myveryspecialwebsite.com" }}
+{{ social:facebook url="https://www.myveryspecialwebsite.com" }}
 ```
 
 ***
 
 ## Parameters
 
-You may pass the following parameters to customize the generated sharing link.
+You may pass the following parameters to customize the generated link.
 
 ### Facebook
 
