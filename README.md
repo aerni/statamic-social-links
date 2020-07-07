@@ -39,7 +39,7 @@ To create a sharing link, you have to call the tag followed by the channel of yo
 {{ social:mail }}
 ```
 
-The `{{ social }}` will use the URL of the current page by default. If you want to share a different URL, you may pass it using the `url` parameter.
+The `{{ social }}` tag will use the URL of the current page by default. If you want to share a different URL, you may pass it using the `url` parameter.
 
 ```template
 {{ social:facebook url="https://www.myveryspecialwebsite.com" }}
