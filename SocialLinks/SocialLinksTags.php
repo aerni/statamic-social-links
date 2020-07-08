@@ -66,8 +66,10 @@ class SocialLinksTags extends Tags
      */
     public function getParams(): array
     {
+        $url = $this->getParam('url') ?? Request::fullUrl();
+
         return [
-            'url' => $this->getParam('url') ?? Request::fullUrl(),
+            'url' => rawurlencode($url),
             'title' => rawurlencode($this->getParam('title')),
             'text' => rawurlencode($this->getParam('text')),
             'source' => rawurlencode($this->getParam('source')),
