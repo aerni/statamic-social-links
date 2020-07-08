@@ -34,13 +34,13 @@ class SocialLinksTags extends Tags
         $params = $this->getParams();
 
         if ($channel === 'facebook') {
-            return "https://www.facebook.com/sharer/sharer.php?u={$params['url']}";
+            return "https://www.facebook.com/sharer/sharer.php?u={$params['url']}&quote={$params['text']}";
         }
 
         if ($channel === 'twitter') {
             return "https://twitter.com/intent/tweet?url={$params['url']}&text={$params['text']}&via={$params['handle']}";
         }
-        
+
         if ($channel === 'linkedin') {
             return "https://www.linkedin.com/shareArticle?mini=true&url={$params['url']}&title={$params['title']}&summary={$params['text']}&source={$params['source']}";
         }

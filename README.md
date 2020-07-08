@@ -56,6 +56,7 @@ You may pass the following parameters to customize the generated link.
 | Name | Description | Usage |
 |------|-------------|-------|
 | `url` | The URL of the page to share | Optional
+| `text` | The text of your post | Optional
 
 ### Twitter
 
