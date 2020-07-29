@@ -1,0 +1,39 @@
+{
+    "name": "aerni/social-links",
+    "description": "Easily generate Social Sharing Links",
+    "keywords": [
+        "statamic",
+        "social media",
+        "social sharing links"
+    ],
+    "homepage": "https://github.com/aerni/statamic-social-links",
+    "license": "MIT",
+    "authors": [
+        {
+            "name": "Michael Aerni",
+            "email": "hello@michaelaerni.ch",
+            "homepage": "https://www.michaelaerni.ch",
+            "role": "Developer"
+        }
+    ],
+    "require": {
+        "php": "^7.2.5",
+        "statamic/cms": "^3.0@beta"
+    },
+    "autoload": {
+        "psr-4": {
+            "Aerni\\SocialLinks\\": "src"
+        }
+    },
+    "extra": {
+        "statamic": {
+            "name": "SocialLinks",
+            "description": "Easily generate Social Sharing Links"
+        },
+        "laravel": {
+            "providers": [
+                "Aerni\\SocialLinks\\ServiceProvider"
+            ]
+        }
+    }
+}
