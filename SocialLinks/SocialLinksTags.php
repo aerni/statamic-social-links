@@ -8,6 +8,13 @@ use Illuminate\Support\Facades\Request;
 class SocialLinksTags extends Tags
 {
     /**
+     * The supported channels.
+     *
+     * @var array
+     */
+    protected $channels = ['facebook', 'twitter', 'linkedin', 'pinterest', 'whatsapp', 'mail'];
+
+    /**
      * Maps to {{ social:channel }}
      *
      * Where `channel` is the name of the social channel
@@ -20,7 +27,9 @@ class SocialLinksTags extends Tags
     {
         $channel = explode(':', $this->tag, 2)[1];
 
-        return $this->createLink($channel);
+        if ($this->isSupportedChannel($channel)) {
+            return $this->createLink($channel);
+        }
     }
 
     /**
@@ -29,7 +38,7 @@ class SocialLinksTags extends Tags
      * @param string $channel
      * @return string
      */
-    public function createLink(string $channel): string
+    protected function createLink(string $channel): string
     {
         $params = $this->getParams();
 
@@ -57,6 +66,8 @@ class SocialLinksTags extends Tags
         if ($channel === 'mail') {
             return "mailto:{$params['mailto']}?&cc={$params['cc']}&bcc={$params['bcc']}&subject={$params['subject']}&body={$params['body']}";
         }
+
+        return '';
     }
 
     /**
@@ -64,7 +75,7 @@ class SocialLinksTags extends Tags
      *
      * @return array
      */
-    public function getParams(): array
+    protected function getParams(): array
     {
         $url = $this->getParam('url') ?? Request::fullUrl();
 
@@ -81,6 +92,21 @@ class SocialLinksTags extends Tags
             'body' => rawurlencode($this->getParam('body')),
             'image' => rawurlencode($this->getParam('image')),
         ];
+    }
+
+    /**
+     * Check if the channel is supported by this addon.
+     *
+     * @param string $channel
+     * @return bool
+     */
+    protected function isSupportedChannel(string $channel): bool
+    {
+        if (in_array($channel, $this->channels)) {
+            return true;
+        }
+
+        return false;
     }
 
 }
