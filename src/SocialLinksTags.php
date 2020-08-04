@@ -8,6 +8,13 @@ use Statamic\Tags\Tags;
 class SocialLinksTags extends Tags
 {
     /**
+     * The supported channels.
+     *
+     * @var array
+     */
+    protected $channels = ['facebook', 'twitter', 'linkedin', 'pinterest', 'whatsapp', 'mail'];
+
+    /**
      * The handle of the tag.
      *
      * @var string
@@ -25,7 +32,9 @@ class SocialLinksTags extends Tags
      */
     public function wildcard($tag)
     {
-        return $this->createLink($tag);
+        if ($this->isSupportedChannel($tag)) {
+            return $this->createLink($tag);
+        }
     }
 
     /**
@@ -62,6 +71,8 @@ class SocialLinksTags extends Tags
         if ($tag === 'mail') {
             return "mailto:{$params['mailto']}?&cc={$params['cc']}&bcc={$params['bcc']}&subject={$params['subject']}&body={$params['body']}";
         }
+
+        return '';
     }
 
     /**
@@ -86,6 +97,21 @@ class SocialLinksTags extends Tags
             'body' => rawurlencode($this->params->get('body')),
             'image' => rawurlencode($this->params->get('image')),
         ];
+    }
+
+    /**
+     * Check if the channel is supported by this addon.
+     *
+     * @param string $channel
+     * @return bool
+     */
+    protected function isSupportedChannel(string $channel): bool
+    {
+        if (in_array($channel, $this->channels)) {
+            return true;
+        }
+
+        return false;
     }
 
 }
