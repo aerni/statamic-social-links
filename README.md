@@ -74,7 +74,7 @@ You may pass the following parameters to customize the generated link.
 
 ### Mail
 
-The URL will be placed in the body of the email. Anything you pass to the `body` parameter will be added after the URL.
+The `url` will be placed in the body of the email. Anything you pass to the `body` parameter will be added after it.
 
 | Name | Description | Usage |
 |------|-------------|-------|
