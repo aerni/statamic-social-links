@@ -12,7 +12,7 @@ class SocialLinksTags extends Tags
      *
      * @var array
      */
-    protected $channels = ['facebook', 'linkedin', 'mail', 'pinterest', 'twitter', 'whatsapp'];
+    protected $channels = ['facebook', 'linkedin', 'mail', 'pinterest', 'twitter', 'whatsapp', 'xing'];
 
     /**
      * The handle of the tag.
@@ -70,6 +70,10 @@ class SocialLinksTags extends Tags
 
         if ($tag === 'whatsapp') {
             return "whatsapp://send?text={$params['url']}";
+        }
+
+        if ($tag === 'xing') {
+            return "https://www.xing.com/spi/shares/new?url={$params['url']}";
         }
 
         return '';
