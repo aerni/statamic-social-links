@@ -13,7 +13,7 @@ composer require aerni/social-links
 ## Supported Channels
 
 This addon supports the following social channels:
-`Facebook`, `Twitter`, `LinkedIn`, `Pinterest`, `WhatsApp`, `Email`
+`Facebook`, `LinkedIn`, `Mail`, `Pinterest`, `Twitter`, `WhatsApp`, `Xing`
 
 ***
 
@@ -25,20 +25,23 @@ To create a sharing link, you have to call the tag followed by the channel of yo
 <!-- Facebook -->
 {{ social_links:facebook }}
 
-<!-- Twitter -->
-{{ social_links:twitter }}
-
 <!-- LinkedIn -->
 {{ social_links:linkedin }}
+
+<!-- Mail -->
+{{ social_links:mail }}
 
 <!-- Pinterest -->
 {{ social_links:pinterest }}
 
+<!-- Twitter -->
+{{ social_links:twitter }}
+
 <!-- WhatsApp -->
 {{ social_links:whatsapp }}
 
-<!-- Email -->
-{{ social_links:mail }}
+<!-- Xing -->
+{{ social_links:xing }}
 ```
 
 The tag will use the URL of the current page by default. If you want to share a different URL, you may pass it using the `url` parameter.
@@ -60,14 +63,6 @@ You may pass the following parameters to customize the generated link.
 | `url` | The URL of the page to share | Optional
 | `text` | The text of your post | Optional
 
-### Twitter
-
-| Name | Description | Usage |
-|------|-------------|-------|
-| `url` | The URL of the page to share | Optional
-| `text` | The text of your Tweet | Optional
-| `handle` | The twitter handle you want to add to the Tweet | Optional
-
 ### LinkedIn
 
 | Name | Description | Usage |
@@ -77,20 +72,7 @@ You may pass the following parameters to customize the generated link.
 | `text` | The text of your post | Optional
 | `source` | The source of your post | Optional
 
-### Pinterest
-
-| Name | Description | Usage |
-|------|-------------|-------|
-| `url` | The URL of the page to share | Optional
-| `image` | The image to share | Optional
-
-### WhatsApp
-
-| Name | Description | Usage |
-|------|-------------|-------|
-| `url` | The URL of the page to share | Optional
-
-### Email
+### Mail
 
 The URL will be placed in the body of the email. Anything you pass to the `body` parameter will be added after the URL.
 
@@ -102,3 +84,30 @@ The URL will be placed in the body of the email. Anything you pass to the `body`
 | `bcc` | The email address to BCC | Optional
 | `subject` | The subject of the email | Optional
 | `body` | The body of the email | Optional
+
+### Pinterest
+
+| Name | Description | Usage |
+|------|-------------|-------|
+| `url` | The URL of the page to share | Optional
+| `image` | The image to share | Optional
+
+### Twitter
+
+| Name | Description | Usage |
+|------|-------------|-------|
+| `url` | The URL of the page to share | Optional
+| `text` | The text of your Tweet | Optional
+| `handle` | The twitter handle you want to add to the Tweet | Optional
+
+### WhatsApp
+
+| Name | Description | Usage |
+|------|-------------|-------|
+| `url` | The URL of the page to share | Optional
+
+### Xing
+
+| Name | Description | Usage |
+|------|-------------|-------|
+| `url` | The URL of the page to share | Optional
