@@ -12,7 +12,7 @@ composer require aerni/social-links
 
 ## Supported Channels
 
-This addon supports the following social channels:  
+This addon supports the following social channels:
 `Facebook`, `Twitter`, `LinkedIn`, `Pinterest`, `WhatsApp`, `Email`
 
 ***
@@ -92,10 +92,12 @@ You may pass the following parameters to customize the generated link.
 
 ### Email
 
+The URL will be placed in the body of the email. Anything you pass to the `body` parameter will be added after the URL.
+
 | Name | Description | Usage |
 |------|-------------|-------|
 | `url` | The URL of the page to share | Optional
-| `mailto` | The email address you want to send the email to | Required
+| `mailto` | The email address you want to send the email to | Optional
 | `cc` | The email address to CC | Optional
 | `bcc` | The email address to BCC | Optional
 | `subject` | The subject of the email | Optional

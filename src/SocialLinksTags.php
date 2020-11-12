@@ -12,7 +12,7 @@ class SocialLinksTags extends Tags
      *
      * @var array
      */
-    protected $channels = ['facebook', 'twitter', 'linkedin', 'pinterest', 'whatsapp', 'mail'];
+    protected $channels = ['facebook', 'linkedin', 'mail', 'pinterest', 'twitter', 'whatsapp'];
 
     /**
      * The handle of the tag.
@@ -51,25 +51,25 @@ class SocialLinksTags extends Tags
             return "https://www.facebook.com/sharer/sharer.php?u={$params['url']}&quote={$params['text']}";
         }
 
-        if ($tag === 'twitter') {
-            return "https://twitter.com/intent/tweet?url={$params['url']}&text={$params['text']}&via={$params['handle']}";
-        }
-
         if ($tag === 'linkedin') {
             return "https://www.linkedin.com/shareArticle?mini=true&url={$params['url']}&title={$params['title']}&summary={$params['text']}&source={$params['source']}";
         }
 
-        if ($tag === 'pinterest')
-        {
+        if ($tag === 'mail') {
+            $body = implode('. ', [$params['url'], $params['body']]);
+            return "mailto:{$params['mailto']}?&cc={$params['cc']}&bcc={$params['bcc']}&subject={$params['subject']}&body={$body}";
+        }
+
+        if ($tag === 'pinterest') {
             return "https://pinterest.com/pin/create/button/?url={$params['url']}&media={$params['image']}&description={$params['text']}";
+        }
+
+        if ($tag === 'twitter') {
+            return "https://twitter.com/intent/tweet?url={$params['url']}&text={$params['text']}&via={$params['handle']}";
         }
 
         if ($tag === 'whatsapp') {
             return "whatsapp://send?text={$params['url']}";
-        }
-
-        if ($tag === 'mail') {
-            return "mailto:{$params['mailto']}?&cc={$params['cc']}&bcc={$params['bcc']}&subject={$params['subject']}&body={$params['body']}";
         }
 
         return '';
@@ -113,5 +113,4 @@ class SocialLinksTags extends Tags
 
         return false;
     }
-
 }
