@@ -2,15 +2,15 @@
 
 namespace Aerni\SocialLinks;
 
-use Statamic\Tags\Tags;
-use Aerni\SocialLinks\Channels\Mail;
-use Aerni\SocialLinks\Channels\Xing;
-use Aerni\SocialLinks\Channels\Twitter;
-use Illuminate\Support\Facades\Request;
 use Aerni\SocialLinks\Channels\Facebook;
 use Aerni\SocialLinks\Channels\Linkedin;
-use Aerni\SocialLinks\Channels\Whatsapp;
+use Aerni\SocialLinks\Channels\Mail;
 use Aerni\SocialLinks\Channels\Pinterest;
+use Aerni\SocialLinks\Channels\Twitter;
+use Aerni\SocialLinks\Channels\Whatsapp;
+use Aerni\SocialLinks\Channels\Xing;
+use Illuminate\Support\Facades\Request;
+use Statamic\Tags\Tags;
 
 class SocialLinksTags extends Tags
 {
