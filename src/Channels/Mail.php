@@ -15,6 +15,6 @@ class Mail implements Channel
             'body' => implode('. ', [$params->get('url'), $params->get('body')]),
         ];
 
-        return 'mailto:' . $params->get('mailto') . '?' . http_build_query($query);
+        return 'mailto:' . $params->get('to') . '?' . http_build_query($query);
     }
 }

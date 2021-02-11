@@ -79,7 +79,7 @@ The `url` will be placed in the body of the email. Anything you pass to the `bod
 | Name | Description | Usage |
 |------|-------------|-------|
 | `url` | The URL of the page to share | Optional
-| `mailto` | The email address you want to send the email to | Optional
+| `to` | The email address you want to send the email to | Optional
 | `cc` | The email address to CC | Optional
 | `bcc` | The email address to BCC | Optional
 | `subject` | The subject of the email | Optional
