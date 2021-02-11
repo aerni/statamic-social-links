@@ -83,7 +83,7 @@ You may pass the following parameters to customize the generated link.
 | `subject` | The subject of the email | Optional
 | `body` | The body of the email | Optional
 
-The `url` will be placed in the body of the email my default. You can customize the email body text by using the `body` parameter. Note, that this will override the default body text with the `url`. You will have to manually add the `url` in the `body` parameter like so:
+The `url` will be placed in the body of the email by default. You can customize the email body text by using the `body` parameter. Note, that this will override the default body text that includes the `url`. You will have to manually add the `url` in the `body` parameter like so:
 
 ```template
 {{ social_links:mail body="I want to share this great site with you: {permalink}" }}
