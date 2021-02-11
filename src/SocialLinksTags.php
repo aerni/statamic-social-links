@@ -2,18 +2,18 @@
 
 namespace Aerni\SocialLinks;
 
-use Illuminate\Support\Facades\Request;
 use Statamic\Tags\Tags;
+use Aerni\SocialLinks\Channels\Mail;
+use Aerni\SocialLinks\Channels\Xing;
+use Aerni\SocialLinks\Channels\Twitter;
+use Illuminate\Support\Facades\Request;
+use Aerni\SocialLinks\Channels\Facebook;
+use Aerni\SocialLinks\Channels\Linkedin;
+use Aerni\SocialLinks\Channels\Whatsapp;
+use Aerni\SocialLinks\Channels\Pinterest;
 
 class SocialLinksTags extends Tags
 {
-    /**
-     * The supported channels.
-     *
-     * @var array
-     */
-    protected $channels = ['facebook', 'linkedin', 'mail', 'pinterest', 'twitter', 'whatsapp', 'xing'];
-
     /**
      * The handle of the tag.
      *
@@ -22,99 +22,39 @@ class SocialLinksTags extends Tags
     protected static $handle = 'social_links';
 
     /**
-     * Maps to {{ social:tag }}
+     * Maps to {{ social_links:channelName }}
      *
-     * Where `tag` is the name of the social channel
+     * Where `channelName` is the name of the social channel
      *
      * @param $method
      * @param $args
      * @return string
      */
-    public function wildcard($tag)
+    public function wildcard($channelName): string
     {
-        if ($this->isSupportedChannel($tag)) {
-            return $this->createLink($tag);
-        }
+        return $this->getSocialLink($channelName);
     }
 
     /**
-     * Creates the social sharing links
+     * Get the social sharing link by channel name
      *
-     * @param string $tag
+     * @param string $channelName
      * @return string
      */
-    public function createLink(string $tag): string
+    private function getSocialLink(string $channelName): string
     {
-        $params = $this->params();
+        $this->params['url'] = $this->params->get('url') ?? Request::fullUrl();
 
-        if ($tag === 'facebook') {
-            return "https://www.facebook.com/sharer/sharer.php?u={$params['url']}&quote={$params['text']}";
-        }
-
-        if ($tag === 'linkedin') {
-            return "https://www.linkedin.com/shareArticle?mini=true&url={$params['url']}&title={$params['title']}&summary={$params['text']}&source={$params['source']}";
-        }
-
-        if ($tag === 'mail') {
-            $body = implode('. ', [$params['url'], $params['body']]);
-            return "mailto:{$params['mailto']}?&cc={$params['cc']}&bcc={$params['bcc']}&subject={$params['subject']}&body={$body}";
-        }
-
-        if ($tag === 'pinterest') {
-            return "https://pinterest.com/pin/create/button/?url={$params['url']}&media={$params['image']}&description={$params['text']}";
-        }
-
-        if ($tag === 'twitter') {
-            return "https://twitter.com/intent/tweet?url={$params['url']}&text={$params['text']}&via={$params['handle']}";
-        }
-
-        if ($tag === 'whatsapp') {
-            return "whatsapp://send?text={$params['url']}";
-        }
-
-        if ($tag === 'xing') {
-            return "https://www.xing.com/spi/shares/new?url={$params['url']}";
-        }
-
-        return '';
-    }
-
-    /**
-     * Get all the parameters from the tag
-     *
-     * @return array
-     */
-    public function params(): array
-    {
-        $url = $this->params->get('url') ?? Request::fullUrl();
-
-        return [
-            'url' => rawurlencode($url),
-            'title' => rawurlencode($this->params->get('title')),
-            'text' => rawurlencode($this->params->get('text')),
-            'source' => rawurlencode($this->params->get('source')),
-            'handle' => rawurlencode($this->params->get('handle')),
-            'mailto' => rawurlencode($this->params->get('mailto')),
-            'cc' => rawurlencode($this->params->get('cc')),
-            'bcc' => rawurlencode($this->params->get('bcc')),
-            'subject' => rawurlencode($this->params->get('subject')),
-            'body' => rawurlencode($this->params->get('body')),
-            'image' => rawurlencode($this->params->get('image')),
+        $channels = [
+            'facebook' => Facebook::create($this->params),
+            'linkedin' => Linkedin::create($this->params),
+            'mail' => Mail::create($this->params),
+            'pinterest' => Pinterest::create($this->params),
+            'twitter' => Twitter::create($this->params),
+            'whatsapp' => Whatsapp::create($this->params),
+            'xing' => Xing::create($this->params),
         ];
-    }
 
-    /**
-     * Check if the channel is supported by this addon.
-     *
-     * @param string $channel
-     * @return bool
-     */
-    protected function isSupportedChannel(string $channel): bool
-    {
-        if (in_array($channel, $this->channels)) {
-            return true;
-        }
-
-        return false;
+        return $channels[$channelName] ?? '';
     }
 }
