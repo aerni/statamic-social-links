@@ -28,9 +28,9 @@ class SocialLinksTags extends Tags
      *
      * @param $method
      * @param $args
-     * @return string
+     * @return string|null
      */
-    public function wildcard($channelName): string
+    public function wildcard($channelName): ?string
     {
         return $this->getSocialLink($channelName);
     }
@@ -39,9 +39,9 @@ class SocialLinksTags extends Tags
      * Get the social sharing link by channel name
      *
      * @param string $channelName
-     * @return string
+     * @return string|null
      */
-    private function getSocialLink(string $channelName): string
+    private function getSocialLink(string $channelName): ?string
     {
         $this->params['url'] = $this->params->get('url') ?? Request::fullUrl();
 
@@ -55,6 +55,6 @@ class SocialLinksTags extends Tags
             'xing' => Xing::create($this->params),
         ];
 
-        return $channels[$channelName] ?? '';
+        return $channels[$channelName] ?? null;
     }
 }
