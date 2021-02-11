@@ -12,9 +12,9 @@ class Mail implements Channel
             'cc' => $params->get('cc'),
             'bcc' => $params->get('bcc'),
             'subject' => $params->get('subject'),
-            'body' => implode('. ', [$params->get('url'), $params->get('body')]),
+            'body' => $params->get('body') ?? $params->get('url')
         ];
 
-        return 'mailto:' . $params->get('to') . '?' . http_build_query($query);
+        return 'mailto:' . $params->get('to') . '?' . urldecode(http_build_query($query));
     }
 }
