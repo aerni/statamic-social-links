@@ -13,7 +13,7 @@ composer require aerni/social-links
 ## Supported Channels
 
 This addon supports the following social channels:
-`Facebook`, `LinkedIn`, `Mail`, `Pinterest`, `Twitter`, `WhatsApp`, `Xing`
+`Facebook`, `LinkedIn`, `Mail`, `Pinterest`, `Telegram`, `Twitter`, `WhatsApp`, `Xing`
 
 ***
 
@@ -33,6 +33,9 @@ To create a sharing link, you have to call the tag followed by the channel of yo
 
 <!-- Pinterest -->
 {{ social_links:pinterest }}
+
+<!-- Telegram -->
+{{ social_links:telegram }}
 
 <!-- Twitter -->
 {{ social_links:twitter }}
@@ -95,6 +98,13 @@ The `url` will be placed in the body of the email by default. You can customize 
 |------|-------------|-------|
 | `url` | The URL of the page to share | Optional
 | `image` | The image to share | Optional
+
+### Telegram
+
+| Name | Description | Usage |
+|------|-------------|-------|
+| `url` | The URL of the page to share | Optional
+| `text` | The text of your Tweet | Optional
 
 ### Twitter
 
