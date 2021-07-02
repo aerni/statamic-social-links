@@ -104,7 +104,7 @@ The `url` will be placed in the body of the email by default. You can customize 
 | Name | Description | Usage |
 |------|-------------|-------|
 | `url` | The URL of the page to share | Optional
-| `text` | The text of your Tweet | Optional
+| `text` | The description of your shared page | Optional
 
 ### Twitter
 
