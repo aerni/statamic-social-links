@@ -6,6 +6,7 @@ use Aerni\SocialLinks\Channels\Facebook;
 use Aerni\SocialLinks\Channels\Linkedin;
 use Aerni\SocialLinks\Channels\Mail;
 use Aerni\SocialLinks\Channels\Pinterest;
+use Aerni\SocialLinks\Channels\Telegram;
 use Aerni\SocialLinks\Channels\Twitter;
 use Aerni\SocialLinks\Channels\Whatsapp;
 use Aerni\SocialLinks\Channels\Xing;
@@ -50,6 +51,7 @@ class SocialLinksTags extends Tags
             'linkedin' => Linkedin::create($this->params),
             'mail' => Mail::create($this->params),
             'pinterest' => Pinterest::create($this->params),
+            'telegram' => Telegram::create($this->params),
             'twitter' => Twitter::create($this->params),
             'whatsapp' => Whatsapp::create($this->params),
             'xing' => Xing::create($this->params),
