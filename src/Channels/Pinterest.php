@@ -14,6 +14,6 @@ class Pinterest implements Channel
             'description' => $params->get('text'),
         ];
 
-        return 'https://pinterest.com/pin/create/button' . '?' . http_build_query($query);
+        return 'https://www.pinterest.com/pin/create/button/' . '?' . http_build_query($query);
     }
 }
