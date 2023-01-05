@@ -13,7 +13,7 @@ composer require aerni/social-links
 ## Supported Channels
 
 This addon supports the following social channels:
-`Facebook`, `Instagram`, `LinkedIn`, `Mail`, `Pinterest`, `Telegram`, `Twitter`, `Vimeo`, `WhatsApp`, `Xing`, `YouTube`
+`Facebook`, `GitHub`, `Instagram`, `LinkedIn`, `Mail`, `Pinterest`, `Telegram`, `Twitter`, `Vimeo`, `WhatsApp`, `Xing`, `YouTube`
 
 ***
 
