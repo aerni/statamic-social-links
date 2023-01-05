@@ -6,6 +6,8 @@ use Illuminate\Support\Collection;
 
 class Channel
 {
+    protected $decodeShareUrlQuery = false;
+
     protected Collection $params;
 
     public function __construct()

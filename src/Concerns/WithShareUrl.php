@@ -10,6 +10,12 @@ trait WithShareUrl
 
     public function shareUrl(): string
     {
-        return $this->shareBaseUrl() . '?' . urldecode(http_build_query($this->shareUrlParams()));
+        $query = http_build_query($this->shareUrlParams());
+
+        if ($this->decodeShareUrlQuery) {
+            $query = urldecode($query);
+        }
+
+        return $this->shareBaseUrl() . '?' . $query;
     }
 }

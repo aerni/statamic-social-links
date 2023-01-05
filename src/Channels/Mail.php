@@ -9,6 +9,8 @@ class Mail extends Channel
 {
     use WithShareUrl;
 
+    protected $decodeShareUrlQuery = true;
+
     public function shareBaseUrl(): string
     {
         return 'mailto:' . $this->params->get('to');
