@@ -1,5 +1,5 @@
 # SocialLinks ![Statamic](https://flat.badgen.net/badge/Statamic/3.0+/FF269E)
-This addon provides an easy way to generate social profile and sharing links for channels like Facebook, Twitter and more.
+This addon provides an easy way to create social profile and sharing links for channels like Facebook, Twitter and more.
 
 ## Installation
 Install the addon using Composer.
