@@ -9,6 +9,7 @@ use Aerni\SocialLinks\Channels\Channel;
 use Aerni\SocialLinks\Channels\Twitter;
 use Aerni\SocialLinks\Channels\YouTube;
 use Aerni\SocialLinks\Channels\Facebook;
+use Aerni\SocialLinks\Channels\GitHub;
 use Aerni\SocialLinks\Channels\LinkedIn;
 use Aerni\SocialLinks\Channels\Telegram;
 use Aerni\SocialLinks\Channels\WhatsApp;
@@ -19,6 +20,7 @@ class ChannelManager
 {
     protected array $channels = [
         Facebook::class,
+        GitHub::class,
         Instagram::class,
         LinkedIn::class,
         Mail::class,
