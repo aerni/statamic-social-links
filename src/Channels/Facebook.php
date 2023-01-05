@@ -13,7 +13,7 @@ class Facebook extends Channel
 
     protected function profileBaseUrl(): string
     {
-        return 'https://www.facebook.com/in/';
+        return 'https://www.facebook.com/';
     }
 
     protected function shareBaseUrl(): string
