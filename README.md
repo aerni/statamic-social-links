@@ -1,5 +1,5 @@
 # SocialLinks ![Statamic](https://flat.badgen.net/badge/Statamic/3.0+/FF269E)
-This addon provides an easy way to generate social sharing links for channels like Facebook, Twitter and more.
+This addon provides an easy way to create social profile and sharing links for channels like Facebook, Twitter and more.
 
 ## Installation
 Install the addon using Composer.
@@ -13,60 +13,52 @@ composer require aerni/social-links
 ## Supported Channels
 
 This addon supports the following social channels:
-`Facebook`, `LinkedIn`, `Mail`, `Pinterest`, `Telegram`, `Twitter`, `WhatsApp`, `Xing`
+`Facebook`, `GitHub`, `Instagram`, `LinkedIn`, `Mail`, `Pinterest`, `Telegram`, `Twitter`, `Vimeo`, `WhatsApp`, `Xing`, `YouTube`
 
 ***
 
-## Basic Usage
+## Profile Link
 
-To create a sharing link, you have to call the tag followed by the channel of your choice.
+Create a link to a social profile by providing the social `channel` and `handle` of the profile:
 
-```template
-<!-- Facebook -->
-{{ social_links:facebook }}
-
-<!-- LinkedIn -->
-{{ social_links:linkedin }}
-
-<!-- Mail -->
-{{ social_links:mail }}
-
-<!-- Pinterest -->
-{{ social_links:pinterest }}
-
-<!-- Telegram -->
-{{ social_links:telegram }}
-
-<!-- Twitter -->
-{{ social_links:twitter }}
-
-<!-- WhatsApp -->
-{{ social_links:whatsapp }}
-
-<!-- Xing -->
-{{ social_links:xing }}
+```antlers
+{{ social:profile channel="facebook" handle="michaelaerni" }}
 ```
 
-The tag will use the URL of the current page by default. If you want to share a different URL, you may pass it using the `url` parameter.
+Or using the shorthand:
 
-```template
-{{ social_links:facebook url="https://www.myveryspecialwebsite.com" }}
+```antlers
+{{ social:facebook:profile handle="michaelaerni" }}
 ```
 
 ***
 
-## Parameters
+## Sharing Link
 
-You may pass the following parameters to customize the generated link.
+Create a sharing link by providing the social `channel`:
 
-### Facebook
+```antlers
+{{ social:share channel="facebook" }}
+```
+
+Or using the shorthand:
+
+```antlers
+{{ social:facebook:share }}
+```
+
+### Parameters
+
+There are a number of parameters you may use to customize the sharing links:
+
+#### Facebook
 
 | Name | Description | Usage |
 |------|-------------|-------|
 | `url` | The URL of the page to share | Optional
 | `text` | The text of your post | Optional
 
-### LinkedIn
+#### LinkedIn
 
 | Name | Description | Usage |
 |------|-------------|-------|
@@ -75,7 +67,7 @@ You may pass the following parameters to customize the generated link.
 | `text` | The text of your post | Optional
 | `source` | The source of your post | Optional
 
-### Mail
+#### Mail
 
 | Name | Description | Usage |
 |------|-------------|-------|
@@ -88,25 +80,25 @@ You may pass the following parameters to customize the generated link.
 
 The `url` will be placed in the body of the email by default. You can customize the email body text by using the `body` parameter. Note, that this will override the default body text that includes the `url`. You will have to manually add the `url` in the `body` parameter like so:
 
-```template
-{{ social_links:mail body="I want to share this great site with you: {permalink}" }}
+```antlers
+{{ social:mail:share body="I want to share this great site with you: {permalink}" }}
 ```
 
-### Pinterest
+#### Pinterest
 
 | Name | Description | Usage |
 |------|-------------|-------|
 | `url` | The URL of the page to share | Optional
 | `image` | The image to share | Optional
 
-### Telegram
+#### Telegram
 
 | Name | Description | Usage |
 |------|-------------|-------|
 | `url` | The URL of the page to share | Optional
 | `text` | The description of your shared page | Optional
 
-### Twitter
+#### Twitter
 
 | Name | Description | Usage |
 |------|-------------|-------|
@@ -114,14 +106,54 @@ The `url` will be placed in the body of the email by default. You can customize 
 | `text` | The text of your Tweet | Optional
 | `handle` | The twitter handle you want to add to the Tweet | Optional
 
-### WhatsApp
+#### WhatsApp
 
 | Name | Description | Usage |
 |------|-------------|-------|
 | `url` | The URL of the page to share | Optional
 
-### Xing
+#### Xing
 
 | Name | Description | Usage |
 |------|-------------|-------|
 | `url` | The URL of the page to share | Optional
+
+
+***
+
+## Channel Name
+
+Get the name of a social channel:
+
+```antlers
+{{ social:name channel="facebook" }}
+```
+
+Or using the shorthand:
+
+```antlers
+{{ social:facebook:name }}
+```
+***
+
+## Tag Pair
+
+You may also use a tag pair to get all the data at once:
+
+```antlers
+{{ social channel="facebook" handle="michaelaerni" }}
+  {{ profile }}
+  {{ share }}
+  {{ name }}
+{{ /social }}
+```
+
+Or using the shorthand:
+
+```antlers
+{{ social:facebook handle="michaelaerni" }}
+  {{ profile }}
+  {{ share }}
+  {{ name }}
+{{ /social:facebook }}`
+```

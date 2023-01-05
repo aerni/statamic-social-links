@@ -2,16 +2,29 @@
 
 namespace Aerni\SocialLinks\Channels;
 
-use Illuminate\Support\Collection;
+use Aerni\SocialLinks\Channels\Channel;
+use Aerni\SocialLinks\Concerns\WithProfileUrl;
+use Aerni\SocialLinks\Concerns\WithShareUrl;
 
-class Xing implements Channel
+class Xing extends Channel
 {
-    public static function create(Collection $params): string
-    {
-        $query = [
-            'url' => $params->get('url'),
-        ];
+    use WithProfileUrl;
+    use WithShareUrl;
 
-        return 'https://www.xing.com/spi/shares/new' . '?' . http_build_query($query);
+    public function profileBaseUrl(): string
+    {
+        return 'https://www.xing.com/profile/';
+    }
+
+    public function shareBaseUrl(): string
+    {
+        return 'https://www.xing.com/spi/shares/new';
+    }
+
+    public function shareUrlParams(): array
+    {
+        return [
+            'url' => $this->params->get('url'),
+        ];
     }
 }
