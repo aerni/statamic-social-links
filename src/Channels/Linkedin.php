@@ -2,20 +2,36 @@
 
 namespace Aerni\SocialLinks\Channels;
 
-use Illuminate\Support\Collection;
+use Aerni\SocialLinks\Channels\Channel;
+use Aerni\SocialLinks\Concerns\WithProfileUrl;
+use Aerni\SocialLinks\Concerns\WithShareUrl;
 
-class Linkedin implements Channel
+class LinkedIn extends Channel
 {
-    public static function create(Collection $params): string
-    {
-        $query = [
-            'mini' => 'true',
-            'url' => $params->get('url'),
-            'title' => $params->get('title'),
-            'summary' => $params->get('text'),
-            'source' => $params->get('source'),
-        ];
+    use WithProfileUrl;
+    use WithShareUrl;
 
-        return 'https://www.linkedin.com/shareArticle' . '?' . http_build_query($query);
+    public function profileBaseUrl(): string
+    {
+        return match (true) {
+            ($this->params->get('type') === 'company') => 'https://www.linkedin.com/company/',
+            default => 'https://www.linkedin.com/in/',
+        };
+    }
+
+    public function shareBaseUrl(): string
+    {
+        return 'https://www.linkedin.com/shareArticle';
+    }
+
+    public function shareUrlParams(): array
+    {
+        return [
+            'mini' => 'true',
+            'url' => $this->params->get('url'),
+            'title' => $this->params->get('title'),
+            'summary' => $this->params->get('text'),
+            'source' => $this->params->get('source'),
+        ];
     }
 }

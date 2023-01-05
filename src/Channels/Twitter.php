@@ -2,18 +2,31 @@
 
 namespace Aerni\SocialLinks\Channels;
 
-use Illuminate\Support\Collection;
+use Aerni\SocialLinks\Channels\Channel;
+use Aerni\SocialLinks\Concerns\WithProfileUrl;
+use Aerni\SocialLinks\Concerns\WithShareUrl;
 
-class Twitter implements Channel
+class Twitter extends Channel
 {
-    public static function create(Collection $params): string
-    {
-        $query = [
-            'url' => $params->get('url'),
-            'text' => $params->get('text'),
-            'via' => $params->get('handle'),
-        ];
+    use WithProfileUrl;
+    use WithShareUrl;
 
-        return 'https://twitter.com/intent/tweet' . '?' . http_build_query($query);
+    public function profileBaseUrl(): string
+    {
+        return 'https://www.twitter.com/';
+    }
+
+    public function shareBaseUrl(): string
+    {
+        return 'https://twitter.com/intent/tweet';
+    }
+
+    public function shareUrlParams(): array
+    {
+        return [
+            'url' => $this->params->get('url'),
+            'text' => $this->params->get('text'),
+            'via' => $this->params->get('handle'),
+        ];
     }
 }

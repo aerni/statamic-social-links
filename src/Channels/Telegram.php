@@ -2,17 +2,23 @@
 
 namespace Aerni\SocialLinks\Channels;
 
-use Illuminate\Support\Collection;
+use Aerni\SocialLinks\Channels\Channel;
+use Aerni\SocialLinks\Concerns\WithShareUrl;
 
-class Telegram implements Channel
+class Telegram extends Channel
 {
-    public static function create(Collection $params): string
-    {
-        $query = [
-            'url' => $params->get('url'),
-            'text' => $params->get('text'),
-        ];
+    use WithShareUrl;
 
-        return 'https://t.me/share/url' . '?' . http_build_query($query);
+    public function shareBaseUrl(): string
+    {
+        return 'https://t.me/share/url';
+    }
+
+    public function shareUrlParams(): array
+    {
+        return [
+            'url' => $this->params->get('url'),
+            'text' => $this->params->get('text'),
+        ];
     }
 }

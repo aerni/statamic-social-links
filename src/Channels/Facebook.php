@@ -2,17 +2,30 @@
 
 namespace Aerni\SocialLinks\Channels;
 
-use Illuminate\Support\Collection;
+use Aerni\SocialLinks\Channels\Channel;
+use Aerni\SocialLinks\Concerns\WithShareUrl;
+use Aerni\SocialLinks\Concerns\WithProfileUrl;
 
-class Facebook implements Channel
+class Facebook extends Channel
 {
-    public static function create(Collection $params): string
-    {
-        $query = [
-            'u' => $params->get('url'),
-            'quote' => $params->get('text'),
-        ];
+    use WithProfileUrl;
+    use WithShareUrl;
 
-        return 'https://www.facebook.com/sharer/sharer.php' . '?' . http_build_query($query);
+    protected function profileBaseUrl(): string
+    {
+        return 'https://www.facebook.com/in/';
+    }
+
+    protected function shareBaseUrl(): string
+    {
+        return 'https://www.facebook.com/sharer/sharer.php';
+    }
+
+    protected function shareUrlParams(): array
+    {
+        return [
+            'u' => $this->params->get('url'),
+            'quote' => $this->params->get('text'),
+        ];
     }
 }

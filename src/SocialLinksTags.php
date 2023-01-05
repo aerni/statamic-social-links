@@ -2,61 +2,45 @@
 
 namespace Aerni\SocialLinks;
 
-use Aerni\SocialLinks\Channels\Facebook;
-use Aerni\SocialLinks\Channels\Linkedin;
-use Aerni\SocialLinks\Channels\Mail;
-use Aerni\SocialLinks\Channels\Pinterest;
-use Aerni\SocialLinks\Channels\Telegram;
-use Aerni\SocialLinks\Channels\Twitter;
-use Aerni\SocialLinks\Channels\Whatsapp;
-use Aerni\SocialLinks\Channels\Xing;
-use Illuminate\Support\Facades\Request;
 use Statamic\Tags\Tags;
+use Statamic\Support\Str;
+use Aerni\SocialLinks\Channels\Channel;
+use Illuminate\Support\Facades\Request;
 
 class SocialLinksTags extends Tags
 {
-    /**
-     * The handle of the tag.
-     *
-     * @var string
-     */
-    protected static $handle = 'social_links';
+    protected static $handle = 'social';
 
-    /**
-     * Maps to {{ social_links:channelName }}
-     *
-     * Where `channelName` is the name of the social channel
-     *
-     * @param $method
-     * @param $args
-     * @return string|null
-     */
-    public function wildcard($channelName): ?string
+    public function wildcard(): string|array|null
     {
-        return $this->getSocialLink($channelName);
+        if ($this->isPair) {
+            return $this->channel()?->all();
+        }
+
+        return $this->channel()?->all()[Str::after($this->method, ':')] ?? null;
     }
 
-    /**
-     * Get the social sharing link by channel name
-     *
-     * @param string $channelName
-     * @return string|null
-     */
-    private function getSocialLink(string $channelName): ?string
+    public function profile(): ?string
     {
+        return $this->channel()?->profileUrl();
+    }
+
+    public function share(): ?string
+    {
+        return $this->channel()?->shareUrl();
+    }
+
+    public function name(): ?string
+    {
+        return $this->channel()?->name();
+    }
+
+    protected function channel(): ?Channel
+    {
+        $this->params['channel'] = $this->params->get('channel') ?? Str::before($this->method, ':');
         $this->params['url'] = $this->params->get('url') ?? Request::fullUrl();
 
-        $channels = [
-            'facebook' => Facebook::create($this->params),
-            'linkedin' => Linkedin::create($this->params),
-            'mail' => Mail::create($this->params),
-            'pinterest' => Pinterest::create($this->params),
-            'telegram' => Telegram::create($this->params),
-            'twitter' => Twitter::create($this->params),
-            'whatsapp' => Whatsapp::create($this->params),
-            'xing' => Xing::create($this->params),
-        ];
-
-        return $channels[$channelName] ?? null;
+        return ChannelManager::find($this->params['channel'])
+            ?->params($this->params);
     }
 }

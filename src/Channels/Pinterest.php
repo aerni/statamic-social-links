@@ -2,18 +2,31 @@
 
 namespace Aerni\SocialLinks\Channels;
 
-use Illuminate\Support\Collection;
+use Aerni\SocialLinks\Channels\Channel;
+use Aerni\SocialLinks\Concerns\WithProfileUrl;
+use Aerni\SocialLinks\Concerns\WithShareUrl;
 
-class Pinterest implements Channel
+class Pinterest extends Channel
 {
-    public static function create(Collection $params): string
-    {
-        $query = [
-            'url' => $params->get('url'),
-            'media' => $params->get('image'),
-            'description' => $params->get('text'),
-        ];
+    use WithProfileUrl;
+    use WithShareUrl;
 
-        return 'https://www.pinterest.com/pin/create/button/' . '?' . http_build_query($query);
+    public function profileBaseUrl(): string
+    {
+        return 'https://www.pinterest.com/';
+    }
+
+    public function shareBaseUrl(): string
+    {
+        return 'https://www.pinterest.com/pin/create/button/';
+    }
+
+    public function shareUrlParams(): array
+    {
+        return [
+            'url' => $this->params->get('url'),
+            'media' => $this->params->get('image'),
+            'description' => $this->params->get('text'),
+        ];
     }
 }

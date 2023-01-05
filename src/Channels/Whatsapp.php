@@ -2,16 +2,22 @@
 
 namespace Aerni\SocialLinks\Channels;
 
-use Illuminate\Support\Collection;
+use Aerni\SocialLinks\Channels\Channel;
+use Aerni\SocialLinks\Concerns\WithShareUrl;
 
-class Whatsapp implements Channel
+class WhatsApp extends Channel
 {
-    public static function create(Collection $params): string
-    {
-        $query = [
-            'text' => $params->get('url'),
-        ];
+    use WithShareUrl;
 
-        return 'whatsapp://send' . '?' . http_build_query($query);
+    public function shareBaseUrl(): string
+    {
+        return 'whatsapp://send';
+    }
+
+    public function shareUrlParams(): array
+    {
+        return [
+            'text' => $this->params->get('url'),
+        ];
     }
 }
