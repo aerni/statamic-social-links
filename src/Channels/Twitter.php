@@ -5,6 +5,7 @@ namespace Aerni\SocialLinks\Channels;
 use Aerni\SocialLinks\Channels\Channel;
 use Aerni\SocialLinks\Concerns\WithProfileUrl;
 use Aerni\SocialLinks\Concerns\WithShareUrl;
+use Illuminate\Support\Str;
 
 class Twitter extends Channel
 {
@@ -26,7 +27,7 @@ class Twitter extends Channel
         return [
             'url' => $this->params->get('url'),
             'text' => $this->params->get('text'),
-            'via' => $this->params->get('handle'),
+            'via' => Str::remove('@', $this->params->get('handle')),
         ];
     }
 }
