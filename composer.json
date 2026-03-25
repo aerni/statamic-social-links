@@ -21,10 +21,28 @@
         "laravel/framework": "^12.0 || ^13.0",
         "statamic/cms": "^6.0"
     },
+    "require-dev": {
+        "orchestra/testbench": "^10.0 || ^11.0",
+        "pestphp/pest": "^4.0"
+    },
     "autoload": {
         "psr-4": {
             "Aerni\\SocialLinks\\": "src"
         }
+    },
+    "autoload-dev": {
+        "psr-4": {
+            "Aerni\\SocialLinks\\Tests\\": "tests"
+        }
+    },
+    "config": {
+        "allow-plugins": {
+            "pestphp/pest-plugin": true,
+            "pixelfear/composer-dist-plugin": true
+        }
+    },
+    "scripts": {
+        "test": "./vendor/bin/pest"
     },
     "extra": {
         "statamic": {
@@ -36,5 +54,7 @@
                 "Aerni\\SocialLinks\\ServiceProvider"
             ]
         }
-    }
+    },
+    "minimum-stability": "stable",
+    "prefer-stable": true
 }

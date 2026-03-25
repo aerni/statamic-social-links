@@ -55,7 +55,7 @@ abstract class BaseChannel implements Arrayable
 
     public function profileUrl(): ?string
     {
-        if (! isset($this->profileBaseUrl)) {
+        if (! $this->hasProfileUrl()) {
             return null;
         }
 
@@ -64,7 +64,7 @@ abstract class BaseChannel implements Arrayable
 
     public function shareUrl(): ?string
     {
-        if (! isset($this->shareBaseUrl)) {
+        if (! $this->hasShareUrl()) {
             return null;
         }
 
@@ -75,6 +75,16 @@ abstract class BaseChannel implements Arrayable
         }
 
         return $this->shareBaseUrl().'?'.$query;
+    }
+
+    protected function hasProfileUrl(): bool
+    {
+        return isset($this->profileBaseUrl) || (new \ReflectionMethod($this, 'profileBaseUrl'))->getDeclaringClass()->getName() !== self::class;
+    }
+
+    protected function hasShareUrl(): bool
+    {
+        return isset($this->shareBaseUrl) || (new \ReflectionMethod($this, 'shareBaseUrl'))->getDeclaringClass()->getName() !== self::class;
     }
 
     protected function profileBaseUrl(): string
