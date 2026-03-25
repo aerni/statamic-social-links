@@ -19,7 +19,7 @@ abstract class BaseChannel implements Arrayable
 
     public function __construct()
     {
-        $this->params = collect();
+        $this->params = $this->defaultParams();
     }
 
     public function name(): string
@@ -27,16 +27,23 @@ abstract class BaseChannel implements Arrayable
         return class_basename($this);
     }
 
-    public function handle(): string
+    final public function handle(): string
     {
         return strtolower($this->name());
     }
 
     public function params(Collection $params): static
     {
-        $this->params = $params;
+        $this->params = $this->params->merge($params);
 
         return $this;
+    }
+
+    protected function defaultParams(): Collection
+    {
+        return collect([
+            'url' => request()->fullUrl(),
+        ]);
     }
 
     public function toArray(): array
@@ -55,46 +62,34 @@ abstract class BaseChannel implements Arrayable
 
     public function profileUrl(): ?string
     {
-        if (! $this->hasProfileUrl()) {
-            return null;
-        }
-
-        return URL::assemble($this->profileBaseUrl(), $this->params->get('handle'));
+        return ($baseUrl = $this->profileBaseUrl())
+            ? URL::assemble($baseUrl, $this->params->get('handle'))
+            : null;
     }
 
     public function shareUrl(): ?string
     {
-        if (! $this->hasShareUrl()) {
+        if (! $baseUrl = $this->shareBaseUrl()) {
             return null;
         }
 
-        $query = http_build_query($this->shareUrlParams());
+        $query = http_build_query(array_filter($this->shareUrlParams()));
 
         if (! $this->encodeShareUrlQuery) {
             $query = urldecode($query);
         }
 
-        return $this->shareBaseUrl().'?'.$query;
+        return $query ? "{$baseUrl}?{$query}" : $baseUrl;
     }
 
-    protected function hasProfileUrl(): bool
+    protected function profileBaseUrl(): ?string
     {
-        return isset($this->profileBaseUrl) || (new \ReflectionMethod($this, 'profileBaseUrl'))->getDeclaringClass()->getName() !== self::class;
+        return isset($this->profileBaseUrl) ? $this->profileBaseUrl : null;
     }
 
-    protected function hasShareUrl(): bool
+    protected function shareBaseUrl(): ?string
     {
-        return isset($this->shareBaseUrl) || (new \ReflectionMethod($this, 'shareBaseUrl'))->getDeclaringClass()->getName() !== self::class;
-    }
-
-    protected function profileBaseUrl(): string
-    {
-        return $this->profileBaseUrl;
-    }
-
-    protected function shareBaseUrl(): string
-    {
-        return $this->shareBaseUrl;
+        return isset($this->shareBaseUrl) ? $this->shareBaseUrl : null;
     }
 
     protected function shareUrlParams(): array

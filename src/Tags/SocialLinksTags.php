@@ -4,7 +4,6 @@ namespace Aerni\SocialLinks\Tags;
 
 use Aerni\SocialLinks\Facades\Channel;
 use Illuminate\Support\Arr;
-use Illuminate\Support\Facades\Request;
 use Statamic\Support\Str;
 use Statamic\Tags\Tags;
 
@@ -41,8 +40,6 @@ class SocialLinksTags extends Tags
     protected function resolve(): ?array
     {
         $channel = $this->params->get('channel') ?? Str::before($this->method, ':');
-
-        $this->params['url'] = $this->params->get('url') ?? Request::fullUrl();
 
         return Channel::find($channel)
             ?->params($this->params)

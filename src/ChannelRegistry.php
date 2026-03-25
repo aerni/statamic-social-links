@@ -35,16 +35,18 @@ class ChannelRegistry
 
     public function register(string $channel): void
     {
-        if (is_subclass_of($channel, BaseChannel::class)) {
+        if (is_subclass_of($channel, BaseChannel::class) && ! in_array($channel, $this->channels)) {
             $this->channels[] = $channel;
         }
     }
 
     public function find(string $channel): ?BaseChannel
     {
-        return collect([...$this->channels, ...config('social-links.channels', [])])
+        $class = collect([...config('social-links.channels', []), ...$this->channels])
+            ->filter(fn (string $class) => is_subclass_of($class, BaseChannel::class))
             ->unique()
-            ->map(fn (string $class) => app($class))
-            ->first(fn (BaseChannel $class) => $class->handle() === $channel);
+            ->first(fn (string $class) => strtolower(class_basename($class)) === $channel);
+
+        return $class ? app($class) : null;
     }
 }
