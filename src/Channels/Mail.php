@@ -2,21 +2,16 @@
 
 namespace Aerni\SocialLinks\Channels;
 
-use Aerni\SocialLinks\Channels\Channel;
-use Aerni\SocialLinks\Concerns\WithShareUrl;
-
-class Mail extends Channel
+class Mail extends BaseChannel
 {
-    use WithShareUrl;
+    protected bool $encodeShareUrlQuery = false;
 
-    protected $decodeShareUrlQuery = true;
-
-    public function shareBaseUrl(): string
+    protected function shareBaseUrl(): string
     {
-        return 'mailto:' . $this->params->get('to');
+        return 'mailto:'.$this->params->get('to');
     }
 
-    public function shareUrlParams(): array
+    protected function shareUrlParams(): array
     {
         return [
             'cc' => $this->params->get('cc'),

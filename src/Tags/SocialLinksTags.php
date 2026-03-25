@@ -1,8 +1,9 @@
 <?php
 
-namespace Aerni\Tags\SocialLinks;
+namespace Aerni\SocialLinks\Tags;
 
-use Aerni\SocialLinks\Channels\Channel;
+use Aerni\SocialLinks\Facades\Channel;
+use Illuminate\Support\Arr;
 use Illuminate\Support\Facades\Request;
 use Statamic\Support\Str;
 use Statamic\Tags\Tags;
@@ -13,34 +14,38 @@ class SocialLinksTags extends Tags
 
     public function wildcard(): string|array|null
     {
+        $data = $this->resolve();
+
         if ($this->isPair) {
-            return $this->channel()?->all();
+            return $data;
         }
 
-        return $this->channel()?->all()[Str::after($this->method, ':')] ?? null;
+        return Arr::get($data, Str::after($this->method, ':'));
     }
 
     public function profile(): ?string
     {
-        return $this->channel()?->profileUrl();
+        return Arr::get($this->resolve(), 'profile');
     }
 
     public function share(): ?string
     {
-        return $this->channel()?->shareUrl();
+        return Arr::get($this->resolve(), 'share');
     }
 
     public function name(): ?string
     {
-        return $this->channel()?->name();
+        return Arr::get($this->resolve(), 'name');
     }
 
-    protected function channel(): ?Channel
+    protected function resolve(): ?array
     {
-        $this->params['channel'] = $this->params->get('channel') ?? Str::before($this->method, ':');
+        $channel = $this->params->get('channel') ?? Str::before($this->method, ':');
+
         $this->params['url'] = $this->params->get('url') ?? Request::fullUrl();
 
-        return ChannelManager::find($this->params['channel'])
-            ?->params($this->params);
+        return Channel::find($channel)
+            ?->params($this->params)
+            ->toArray();
     }
 }

@@ -2,15 +2,7 @@
 
 namespace Aerni\SocialLinks\Channels;
 
-use Aerni\SocialLinks\Channels\Channel;
-use Aerni\SocialLinks\Concerns\WithProfileUrl;
-
-class Vimeo extends Channel
+class Vimeo extends BaseChannel
 {
-    use WithProfileUrl;
-
-    public function profileBaseUrl(): string
-    {
-        return 'https://www.vimeo.com/';
-    }
+    protected string $profileBaseUrl = 'https://www.vimeo.com';
 }

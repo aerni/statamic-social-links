@@ -2,29 +2,19 @@
 
 namespace Aerni\SocialLinks\Channels;
 
-use Aerni\SocialLinks\Channels\Channel;
-use Aerni\SocialLinks\Concerns\WithProfileUrl;
-use Aerni\SocialLinks\Concerns\WithShareUrl;
-
-class LinkedIn extends Channel
+class LinkedIn extends BaseChannel
 {
-    use WithProfileUrl;
-    use WithShareUrl;
+    protected string $shareBaseUrl = 'https://www.linkedin.com/shareArticle';
 
-    public function profileBaseUrl(): string
+    protected function profileBaseUrl(): string
     {
-        return match (true) {
-            ($this->params->get('type') === 'company') => 'https://www.linkedin.com/company/',
-            default => 'https://www.linkedin.com/in/',
+        return match ($this->params->get('type')) {
+            'company' => 'https://www.linkedin.com/company',
+            default => 'https://www.linkedin.com/in',
         };
     }
 
-    public function shareBaseUrl(): string
-    {
-        return 'https://www.linkedin.com/shareArticle';
-    }
-
-    public function shareUrlParams(): array
+    protected function shareUrlParams(): array
     {
         return [
             'mini' => 'true',

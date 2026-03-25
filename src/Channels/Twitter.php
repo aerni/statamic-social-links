@@ -2,27 +2,15 @@
 
 namespace Aerni\SocialLinks\Channels;
 
-use Aerni\SocialLinks\Channels\Channel;
-use Aerni\SocialLinks\Concerns\WithProfileUrl;
-use Aerni\SocialLinks\Concerns\WithShareUrl;
 use Illuminate\Support\Str;
 
-class Twitter extends Channel
+class Twitter extends BaseChannel
 {
-    use WithProfileUrl;
-    use WithShareUrl;
+    protected string $profileBaseUrl = 'https://www.twitter.com';
 
-    public function profileBaseUrl(): string
-    {
-        return 'https://www.twitter.com/';
-    }
+    protected string $shareBaseUrl = 'https://twitter.com/intent/tweet';
 
-    public function shareBaseUrl(): string
-    {
-        return 'https://twitter.com/intent/tweet';
-    }
-
-    public function shareUrlParams(): array
+    protected function shareUrlParams(): array
     {
         return [
             'url' => $this->params->get('url'),
