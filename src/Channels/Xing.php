@@ -2,26 +2,13 @@
 
 namespace Aerni\SocialLinks\Channels;
 
-use Aerni\SocialLinks\Channels\Channel;
-use Aerni\SocialLinks\Concerns\WithProfileUrl;
-use Aerni\SocialLinks\Concerns\WithShareUrl;
-
-class Xing extends Channel
+class Xing extends BaseChannel
 {
-    use WithProfileUrl;
-    use WithShareUrl;
+    protected string $profileBaseUrl = 'https://www.xing.com/profile';
 
-    public function profileBaseUrl(): string
-    {
-        return 'https://www.xing.com/profile/';
-    }
+    protected string $shareBaseUrl = 'https://www.xing.com/spi/shares/new';
 
-    public function shareBaseUrl(): string
-    {
-        return 'https://www.xing.com/spi/shares/new';
-    }
-
-    public function shareUrlParams(): array
+    protected function shareUrlParams(): array
     {
         return [
             'url' => $this->params->get('url'),

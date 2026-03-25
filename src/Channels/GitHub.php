@@ -2,15 +2,7 @@
 
 namespace Aerni\SocialLinks\Channels;
 
-use Aerni\SocialLinks\Channels\Channel;
-use Aerni\SocialLinks\Concerns\WithProfileUrl;
-
-class GitHub extends Channel
+class GitHub extends BaseChannel
 {
-    use WithProfileUrl;
-
-    public function profileBaseUrl(): string
-    {
-        return 'https://github.com/';
-    }
+    protected string $profileBaseUrl = 'https://github.com';
 }

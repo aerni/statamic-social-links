@@ -2,26 +2,13 @@
 
 namespace Aerni\SocialLinks\Channels;
 
-use Aerni\SocialLinks\Channels\Channel;
-use Aerni\SocialLinks\Concerns\WithProfileUrl;
-use Aerni\SocialLinks\Concerns\WithShareUrl;
-
-class Pinterest extends Channel
+class Pinterest extends BaseChannel
 {
-    use WithProfileUrl;
-    use WithShareUrl;
+    protected string $profileBaseUrl = 'https://www.pinterest.com';
 
-    public function profileBaseUrl(): string
-    {
-        return 'https://www.pinterest.com/';
-    }
+    protected string $shareBaseUrl = 'https://www.pinterest.com/pin/create/button';
 
-    public function shareBaseUrl(): string
-    {
-        return 'https://www.pinterest.com/pin/create/button/';
-    }
-
-    public function shareUrlParams(): array
+    protected function shareUrlParams(): array
     {
         return [
             'url' => $this->params->get('url'),

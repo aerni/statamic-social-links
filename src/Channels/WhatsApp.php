@@ -2,19 +2,11 @@
 
 namespace Aerni\SocialLinks\Channels;
 
-use Aerni\SocialLinks\Channels\Channel;
-use Aerni\SocialLinks\Concerns\WithShareUrl;
-
-class WhatsApp extends Channel
+class WhatsApp extends BaseChannel
 {
-    use WithShareUrl;
+    protected string $shareBaseUrl = 'whatsapp://send';
 
-    public function shareBaseUrl(): string
-    {
-        return 'whatsapp://send';
-    }
-
-    public function shareUrlParams(): array
+    protected function shareUrlParams(): array
     {
         return [
             'text' => $this->params->get('url'),

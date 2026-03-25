@@ -2,19 +2,11 @@
 
 namespace Aerni\SocialLinks\Channels;
 
-use Aerni\SocialLinks\Channels\Channel;
-use Aerni\SocialLinks\Concerns\WithShareUrl;
-
-class Telegram extends Channel
+class Telegram extends BaseChannel
 {
-    use WithShareUrl;
+    protected string $shareBaseUrl = 'https://t.me/share/url';
 
-    public function shareBaseUrl(): string
-    {
-        return 'https://t.me/share/url';
-    }
-
-    public function shareUrlParams(): array
+    protected function shareUrlParams(): array
     {
         return [
             'url' => $this->params->get('url'),

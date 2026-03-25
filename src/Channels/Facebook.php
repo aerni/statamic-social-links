@@ -2,24 +2,11 @@
 
 namespace Aerni\SocialLinks\Channels;
 
-use Aerni\SocialLinks\Channels\Channel;
-use Aerni\SocialLinks\Concerns\WithShareUrl;
-use Aerni\SocialLinks\Concerns\WithProfileUrl;
-
-class Facebook extends Channel
+class Facebook extends BaseChannel
 {
-    use WithProfileUrl;
-    use WithShareUrl;
+    protected string $profileBaseUrl = 'https://www.facebook.com';
 
-    protected function profileBaseUrl(): string
-    {
-        return 'https://www.facebook.com/';
-    }
-
-    protected function shareBaseUrl(): string
-    {
-        return 'https://www.facebook.com/sharer/sharer.php';
-    }
+    protected string $shareBaseUrl = 'https://www.facebook.com/sharer/sharer.php';
 
     protected function shareUrlParams(): array
     {

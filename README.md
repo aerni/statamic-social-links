@@ -1,4 +1,4 @@
-# SocialLinks ![Statamic](https://flat.badgen.net/badge/Statamic/4.0+/FF269E)
+# SocialLinks ![Statamic](https://flat.badgen.net/badge/Statamic/6.0+/FF269E)
 This addon provides an easy way to create social profile and sharing links for channels like Facebook, Twitter and more.
 
 ## Installation
@@ -156,4 +156,75 @@ Or using the shorthand:
   {{ share }}
   {{ name }}
 {{ /social:facebook }}`
+```
+
+***
+
+## Extending
+
+You can register your own custom channels in two ways.
+
+### Creating a Custom Channel
+
+Create a class that extends `BaseChannel`. Set `$profileBaseUrl` for profile links, `$shareBaseUrl` for share links, or both. Override `shareUrlParams()` to define the query parameters for the share URL.
+
+A profile-only channel:
+
+```php
+use Aerni\SocialLinks\Channels\BaseChannel;
+
+class Mastodon extends BaseChannel
+{
+    protected string $profileBaseUrl = 'https://mastodon.social';
+}
+```
+
+A channel with both profile and share support:
+
+```php
+use Aerni\SocialLinks\Channels\BaseChannel;
+
+class Reddit extends BaseChannel
+{
+    protected string $profileBaseUrl = 'https://www.reddit.com/user';
+
+    protected string $shareBaseUrl = 'https://www.reddit.com/submit';
+
+    protected function shareUrlParams(): array
+    {
+        return [
+            'url' => $this->params->get('url'),
+            'title' => $this->params->get('title'),
+        ];
+    }
+}
+```
+
+If you need dynamic logic for the base URL, override the `profileBaseUrl()` or `shareBaseUrl()` method instead of using the property.
+
+### Registering via Config
+
+Publish the config file and add your channel class to the `channels` array:
+
+```php
+// config/social-links.php
+
+return [
+    'channels' => [
+        App\Channels\Mastodon::class,
+    ],
+];
+```
+
+### Registering Programmatically
+
+Register a channel from a service provider's `boot()` method:
+
+```php
+use App\Channels\Mastodon;
+
+public function boot(): void
+{
+    Mastodon::register();
+}
 ```
