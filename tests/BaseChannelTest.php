@@ -1,6 +1,7 @@
 <?php
 
 use Aerni\SocialLinks\Channels\BaseChannel;
+use Aerni\SocialLinks\Facades\Channel;
 
 it('returns the channel name from the class basename', function () {
     $channel = new ProfileOnlyChannel;
@@ -81,7 +82,7 @@ it('converts to array with share only', function () {
 it('registers itself via the static register method', function () {
     ProfileOnlyChannel::register();
 
-    expect(\Aerni\SocialLinks\Facades\Channel::find('profileonlychannel'))->toBeInstanceOf(ProfileOnlyChannel::class);
+    expect(Channel::find('profileonlychannel'))->toBeInstanceOf(ProfileOnlyChannel::class);
 });
 
 it('converts to array with both profile and share', function () {
