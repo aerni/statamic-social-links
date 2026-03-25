@@ -1,11 +1,11 @@
 <?php
 
-namespace Aerni\SocialLinks;
+namespace Aerni\Tags\SocialLinks;
 
-use Statamic\Tags\Tags;
-use Statamic\Support\Str;
 use Aerni\SocialLinks\Channels\Channel;
 use Illuminate\Support\Facades\Request;
+use Statamic\Support\Str;
+use Statamic\Tags\Tags;
 
 class SocialLinksTags extends Tags
 {
