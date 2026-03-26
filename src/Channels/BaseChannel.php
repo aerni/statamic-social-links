@@ -39,7 +39,6 @@ abstract class BaseChannel implements Arrayable
         return $this;
     }
 
-
     public function toArray(): array
     {
         return array_filter([
@@ -56,9 +55,14 @@ abstract class BaseChannel implements Arrayable
 
     public function profileUrl(): ?string
     {
-        return ($baseUrl = $this->profileBaseUrl())
-            ? URL::assemble($baseUrl, $this->params->get('handle'))
-            : null;
+        $baseUrl = $this->profileBaseUrl();
+        $handle = $this->params->get('handle');
+
+        if (! $baseUrl || ! $handle) {
+            return null;
+        }
+
+        return URL::assemble($baseUrl, $handle);
     }
 
     public function shareUrl(): ?string
@@ -75,7 +79,7 @@ abstract class BaseChannel implements Arrayable
             $query = urldecode($query);
         }
 
-        return $query ? "{$baseUrl}?{$query}" : $baseUrl;
+        return $query ? "{$baseUrl}?{$query}" : null;
     }
 
     protected function profileBaseUrl(): ?string
