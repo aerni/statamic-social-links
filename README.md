@@ -166,9 +166,15 @@ You can register your own custom channels in two ways.
 
 ### Creating a Custom Channel
 
-Create a class that extends `BaseChannel`. Set `$profileBaseUrl` for profile links, `$shareBaseUrl` for share links, or both. Override `shareUrlParams()` to define the query parameters for the share URL.
+Create a class that extends `BaseChannel`. A channel can support profile links, share links, or both. All params passed to the Antlers tag are available in the channel via `$this->params->get('param_name')`.
 
-A profile-only channel:
+#### Profile Channels
+
+To support profile links, set the `$profileBaseUrl` property. The profile URL is built by appending the `handle` param to the base URL. The `handle` param must be provided on the Antlers tag.
+
+| Property/Method | Description |
+|-----------------|-------------|
+| `$profileBaseUrl` | The base URL for profile links. |
 
 ```php
 use Aerni\SocialLinks\Channels\BaseChannel;
@@ -179,15 +185,21 @@ class Mastodon extends BaseChannel
 }
 ```
 
-A channel with both profile and share support:
+#### Share Channels
+
+To support share links, set the `$shareBaseUrl` property and override `shareUrlParams()` to define the query parameters for the share URL. The `url` param defaults to the current page URL if not explicitly provided on the Antlers tag.
+
+| Property/Method | Description |
+|-----------------|-------------|
+| `$shareBaseUrl` | The base URL for share links. |
+| `shareUrlParams()` | Override this method to define the query parameters for the share URL. Must return an array. |
+| `$encodeShareUrlQuery` | Whether to URL-encode the share URL query string. Defaults to `true`. Set to `false` for channels like Mail that need raw URLs. |
 
 ```php
 use Aerni\SocialLinks\Channels\BaseChannel;
 
 class Reddit extends BaseChannel
 {
-    protected string $profileBaseUrl = 'https://www.reddit.com/user';
-
     protected string $shareBaseUrl = 'https://www.reddit.com/submit';
 
     protected function shareUrlParams(): array
@@ -204,11 +216,9 @@ If you need dynamic logic for the base URL, override the `profileBaseUrl()` or `
 
 ### Registering via Config
 
-Publish the config file and add your channel class to the `channels` array:
+Publish the config file and add your channel class to the `channels` array in `config/social-links.php`:
 
 ```php
-// config/social-links.php
-
 return [
     'channels' => [
         App\Channels\Mastodon::class,
