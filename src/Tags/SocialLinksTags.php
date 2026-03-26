@@ -42,7 +42,7 @@ class SocialLinksTags extends Tags
         $channel = $this->params->get('channel') ?? Str::before($this->method, ':');
 
         return Channel::find($channel)
-            ?->params($this->params)
+            ?->params($this->params->except('channel'))
             ->toArray();
     }
 }
