@@ -71,7 +71,9 @@ abstract class BaseChannel implements Arrayable
             return null;
         }
 
-        $this->params->putIfAbsent('url', request()->fullUrl());
+        if (! $this->params->has('url')) {
+            $this->params->put('url', request()->fullUrl());
+        }
 
         $query = http_build_query(array_filter($this->shareUrlParams()));
 
