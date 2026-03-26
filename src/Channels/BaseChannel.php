@@ -19,7 +19,7 @@ abstract class BaseChannel implements Arrayable
 
     public function __construct()
     {
-        $this->params = $this->defaultParams();
+        $this->params = collect();
     }
 
     public function name(): string
@@ -39,12 +39,6 @@ abstract class BaseChannel implements Arrayable
         return $this;
     }
 
-    protected function defaultParams(): Collection
-    {
-        return collect([
-            'url' => request()->fullUrl(),
-        ]);
-    }
 
     public function toArray(): array
     {
@@ -72,6 +66,8 @@ abstract class BaseChannel implements Arrayable
         if (! $baseUrl = $this->shareBaseUrl()) {
             return null;
         }
+
+        $this->params->putIfAbsent('url', request()->fullUrl());
 
         $query = http_build_query(array_filter($this->shareUrlParams()));
 
